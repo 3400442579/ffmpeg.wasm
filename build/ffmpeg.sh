@@ -17,6 +17,8 @@ CONF_FLAGS=(
   # enable necessary modules
   --enable-avformat \
   --enable-avfilter \
+  --enable-libswscale \
+  --enable-libpostproc \
 
   # assign toolchains and extra flags
   --nm=emnm

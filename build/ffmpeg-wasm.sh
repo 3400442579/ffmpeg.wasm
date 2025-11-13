@@ -17,11 +17,15 @@ CONF_FLAGS=(
   -Llibavfilter 
   -Llibavutil 
   -Llibswresample 
+  -Llibswscale 
+  -Llibpostproc 
   -lavcodec 
   -lavformat 
   -lavfilter 
   -lavutil 
   -lswresample 
+  -lswscale 
+  -lpostproc 
   -Wno-deprecated-declarations 
   $LDFLAGS 
   -sENVIRONMENT=worker
