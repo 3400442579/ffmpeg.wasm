@@ -20,26 +20,9 @@ ENV FFMPEG_MT=$FFMPEG_MT
 RUN apt-get update && \
       apt-get install -y pkg-config autoconf automake libtool ragel
 
-# Build x264
-FROM emsdk-base AS x264-builder
-ENV X264_BRANCH=4-cores
-ADD https://github.com/ffmpegwasm/x264.git#$X264_BRANCH /src
-COPY build/x264.sh /src/build.sh
-RUN bash -x /src/build.sh
 
-# Build x265
-FROM emsdk-base AS x265-builder
-ENV X265_BRANCH=3.4
-ADD https://github.com/ffmpegwasm/x265.git#$X265_BRANCH /src
-COPY build/x265.sh /src/build.sh
-RUN bash -x /src/build.sh
 
-# Build libvpx
-FROM emsdk-base AS libvpx-builder
-ENV LIBVPX_BRANCH=v1.13.1
-ADD https://github.com/ffmpegwasm/libvpx.git#$LIBVPX_BRANCH /src
-COPY build/libvpx.sh /src/build.sh
-RUN bash -x /src/build.sh
+
 
 # Build lame
 FROM emsdk-base AS lame-builder
@@ -55,13 +38,7 @@ ADD https://github.com/ffmpegwasm/Ogg.git#$OGG_BRANCH /src
 COPY build/ogg.sh /src/build.sh
 RUN bash -x /src/build.sh
 
-# Build theora
-FROM emsdk-base AS theora-builder
-COPY --from=ogg-builder $INSTALL_DIR $INSTALL_DIR
-ENV THEORA_BRANCH=v1.1.1
-ADD https://github.com/ffmpegwasm/theora.git#$THEORA_BRANCH /src
-COPY build/theora.sh /src/build.sh
-RUN bash -x /src/build.sh
+
 
 # Build opus
 FROM emsdk-base AS opus-builder
@@ -78,33 +55,16 @@ ADD https://github.com/ffmpegwasm/vorbis.git#$VORBIS_BRANCH /src
 COPY build/vorbis.sh /src/build.sh
 RUN bash -x /src/build.sh
 
-# Build zlib
-FROM emsdk-base AS zlib-builder
-ENV ZLIB_BRANCH=v1.2.11
-ADD https://github.com/ffmpegwasm/zlib.git#$ZLIB_BRANCH /src
-COPY build/zlib.sh /src/build.sh
-RUN bash -x /src/build.sh
 
-# Build libwebp
-FROM emsdk-base AS libwebp-builder
-COPY --from=zlib-builder $INSTALL_DIR $INSTALL_DIR
-ENV LIBWEBP_BRANCH=v1.3.2
-ADD https://github.com/ffmpegwasm/libwebp.git#$LIBWEBP_BRANCH /src
-COPY build/libwebp.sh /src/build.sh
-RUN bash -x /src/build.sh
+
 
 # Base ffmpeg image with dependencies and source code populated.
 FROM emsdk-base AS ffmpeg-base
 RUN embuilder build sdl2 sdl2-mt
 ADD https://github.com/FFmpeg/FFmpeg.git#$FFMPEG_VERSION /src
-COPY --from=x264-builder $INSTALL_DIR $INSTALL_DIR
-COPY --from=x265-builder $INSTALL_DIR $INSTALL_DIR
-COPY --from=libvpx-builder $INSTALL_DIR $INSTALL_DIR
 COPY --from=lame-builder $INSTALL_DIR $INSTALL_DIR
 COPY --from=opus-builder $INSTALL_DIR $INSTALL_DIR
-COPY --from=theora-builder $INSTALL_DIR $INSTALL_DIR
 COPY --from=vorbis-builder $INSTALL_DIR $INSTALL_DIR
-COPY --from=libwebp-builder $INSTALL_DIR $INSTALL_DIR
 
 # Build ffmpeg
 FROM ffmpeg-base AS ffmpeg-builder
@@ -115,7 +75,6 @@ RUN bash -x /src/build.sh \
       --disable-ffprobe \
      
       --enable-gpl \
-      --enable-libx264 \
       --enable-libmp3lame \
       --enable-libvorbis \
       --enable-libopus 
@@ -127,14 +86,12 @@ COPY src/fftools /src/src/fftools
 COPY build/ffmpeg-wasm.sh build.sh
 # libraries to link
 ENV FFMPEG_LIBS \
-      -lx264 \
       -lmp3lame \
       -logg \
       -lvorbis \
       -lvorbisenc \
       -lvorbisfile \
-      -lopus \
-      -lsharpyuv
+      -lopus
 RUN mkdir -p /src/dist/umd && bash -x /src/build.sh \
       ${FFMPEG_LIBS} \
       -o dist/umd/ffmpeg-core.js
