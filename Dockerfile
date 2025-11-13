@@ -151,20 +151,20 @@ COPY --from=zimg-builder $INSTALL_DIR $INSTALL_DIR
 FROM ffmpeg-base AS ffmpeg-builder
 COPY build/ffmpeg.sh /src/build.sh
 RUN bash -x /src/build.sh \
-      --enable-gpl \
-      --enable-libx264 \
-      --enable-libx265 \
-      --enable-libvpx \
-      --enable-libmp3lame \
-      --enable-libtheora \
-      --enable-libvorbis \
-      --enable-libopus \
-      --enable-zlib \
-      --enable-libwebp \
-      --enable-libfreetype \
-      --enable-libfribidi \
-      --enable-libass \
-      --enable-libzimg 
+      --disable-everything \
+      --disable-network \
+      --disable-autodetect \
+      --enable-decoder=aac,aac_latm,mp3,float,s16,s32,wavpack,alac,flac,vorbis,opus,pcm_* \
+      --enable-encoder=aac,mp3,pcm_s16le,pcm_f32le \
+      --enable-parser=aac,mp3,flac \
+      --enable-filter=aresample,aformat,volume,pan,atempo,equalizer,acompressor,astats,silencedetect,silenceremove \
+      --enable-protocol=file \
+      --enable-demuxer=aac,mp3,wav,flac,alac,ogg,opus \
+      --enable-muxer=mp3,wav,flac,opus \
+      --enable-filter=concat,asetpts \
+      --enable-small \
+      --disable-doc \
+      --disable-programs
 
 # Build ffmpeg.wasm
 FROM ffmpeg-builder AS ffmpeg-wasm-builder
@@ -173,25 +173,12 @@ COPY src/fftools /src/src/fftools
 COPY build/ffmpeg-wasm.sh build.sh
 # libraries to link
 ENV FFMPEG_LIBS \
-      -lx264 \
-      -lx265 \
-      -lvpx \
       -lmp3lame \
       -logg \
-      -ltheora \
       -lvorbis \
       -lvorbisenc \
       -lvorbisfile \
-      -lopus \
-      -lz \
-      -lwebpmux \
-      -lwebp \
-      -lsharpyuv \
-      -lfreetype \
-      -lfribidi \
-      -lharfbuzz \
-      -lass \
-      -lzimg
+      -lopus
 RUN mkdir -p /src/dist/umd && bash -x /src/build.sh \
       ${FFMPEG_LIBS} \
       -o dist/umd/ffmpeg-core.js
