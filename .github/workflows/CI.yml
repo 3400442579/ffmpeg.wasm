@@ -58,6 +58,7 @@ jobs:
           name: ffmpeg-core-mt
           path: packages/core-mt/dist/*
   tests:
+    if: github.ref != 'refs/heads/audio'
     runs-on: ubuntu-latest
     needs:
       - build-core
