@@ -113,7 +113,7 @@ RUN bash -x /src/build.sh \
       --disable-doc \
       --disable-ffplay \
       --disable-ffprobe \
-      --disable-everything \
+     
       --enable-gpl \
       --enable-libx264 \
       --enable-libmp3lame \
