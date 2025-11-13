@@ -14,6 +14,10 @@ CONF_FLAGS=(
   --disable-runtime-cpudetect   # disable cpu detection
   --disable-autodetect          # disable env auto detect
 
+  # enable necessary modules
+  --enable-avformat \
+  --enable-avfilter \
+
   # assign toolchains and extra flags
   --nm=emnm
   --ar=emar

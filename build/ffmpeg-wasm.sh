@@ -13,9 +13,13 @@ CONF_FLAGS=(
   -I$INSTALL_DIR/include 
   -L$INSTALL_DIR/lib 
   -Llibavcodec 
+  -Llibavformat 
+  -Llibavfilter 
   -Llibavutil 
   -Llibswresample 
   -lavcodec 
+  -lavformat 
+  -lavfilter 
   -lavutil 
   -lswresample 
   -Wno-deprecated-declarations 
