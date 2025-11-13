@@ -157,14 +157,19 @@ RUN bash -x /src/build.sh \
       --enable-decoder=aac,aac_latm,mp3,float,s16,s32,wavpack,alac,flac,vorbis,opus,pcm_* \
       --enable-encoder=aac,mp3,pcm_s16le,pcm_f32le \
       --enable-parser=aac,mp3,flac \
-      --enable-filter=aresample,aformat,volume,pan,atempo,equalizer,acompressor,astats,silencedetect,silenceremove \
+      --enable-filter=aresample,aformat,volume,pan,atempo,equalizer \
       --enable-protocol=file \
       --enable-demuxer=aac,mp3,wav,flac,alac,ogg,opus \
       --enable-muxer=mp3,wav,flac,opus \
       --enable-filter=concat,asetpts \
       --enable-small \
       --disable-doc \
-      --disable-programs
+      --disable-programs \
+      --enable-ffmpeg \
+      --enable-avcodec \
+      --enable-avformat \
+      --enable-avutil \
+      --enable-swresample
 
 # Build ffmpeg.wasm
 FROM ffmpeg-builder AS ffmpeg-wasm-builder
@@ -179,6 +184,8 @@ ENV FFMPEG_LIBS \
       -lvorbisenc \
       -lvorbisfile \
       -lopus
+ENV AUDIO_ONLY=true
+
 RUN mkdir -p /src/dist/umd && bash -x /src/build.sh \
       ${FFMPEG_LIBS} \
       -o dist/umd/ffmpeg-core.js
