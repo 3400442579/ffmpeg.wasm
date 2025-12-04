@@ -18,8 +18,6 @@ CONF_FLAGS=(
   --disable-avdevice
   --disable-swscale
   --disable-postproc
-  --disable-swresample-arm
-  --disable-swscale-alpha
   --disable-swscale-arm
 
   # 保留必要滤镜功能
@@ -48,20 +46,19 @@ CONF_FLAGS=(
   --disable-shared
   --disable-network
   
-  # 禁用所有视频编解码器
+  # 禁用所有不必要的组件
   --disable-everything
   
-  # 启用音频处理必需的功能
-  --enable-decoder=mp3,m4a,aac,flac,vorbis,opus,wavpack,pcm_*
-  --enable-encoder=mp3,m4a,aac,flac,vorbis,opus,pcm_*
-  --enable-parser=mpegaudio,aac,latm,vorbis,opus
-  --enable-demuxer=mp3,m4a,aac,flac,ogg,wav,au
-  --enable-muxer=mp3,m4a,aac,flac,ogg,wav
-  --enable-filter=aresample,aformat,volume,pan,amerge,amix,silenceremove,atrim,concat
+  # 启用音频处理必需的功能（添加AMR支持）
+  --enable-decoder=mp3,mp2,m4a,aac,wma*,flac,vorbis,opus,wavpack,pcm_*,alac,amr*,amrnb,amrwb
+  --enable-encoder=mp3,mp2,m4a,aac,flac,vorbis,opus,pcm_*,amrnb,amrwb
+  --enable-parser=mpegaudio,aac,latm,vorbis,opus,amr
+  --enable-demuxer=mp3,mp2,m4a,aac,wma*,flac,ogg,wav,au,oma,ast,afc,ape,dsf,dsd*,3gpp,amr
+  --enable-muxer=mp3,mp2,m4a,aac,flac,ogg,wav,oma,ast,3gp,amr
+  --enable-filter=aresample,aformat,volume,pan,amerge,amix,silenceremove,atrim,concat,asetnsamples,aconvert,channelsplit,channelmap
   
   # 启用基础工具
   --enable-protocol=file
-  --enable-filter=aformat,aresample
 
   # 工具链配置
   --nm=emnm

@@ -26,7 +26,7 @@ CONF_FLAGS=(
   $LDFLAGS 
   -sENVIRONMENT=worker
   -sWASM_BIGINT                            # enable big int support
-  -sSTACK_SIZE=4MB                         # 减少栈大小，音频处理不需要5MB
+  -sSTACK_SIZE=2MB                         # 减少栈大小，音频处理不需要5MB
   -sMODULARIZE                             # modularized to use as a library
   -sFILESYSTEM=1                           # 保持文件系统支持
   -sASSERTIONS=0                           # 禁用断言以减小体积

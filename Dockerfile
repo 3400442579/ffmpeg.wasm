@@ -75,7 +75,8 @@ RUN bash -x /src/build.sh \
       --disable-ffprobe \
       --enable-libmp3lame \
       --enable-libvorbis \
-      --enable-libopus
+      --enable-libopus \
+      --disable-network
 
 # Build ffmpeg.wasm
 FROM ffmpeg-builder AS ffmpeg-wasm-builder
