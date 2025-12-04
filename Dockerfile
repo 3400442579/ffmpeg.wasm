@@ -9,9 +9,9 @@ ARG FFMPEG_MT
 ENV INSTALL_DIR=/opt
 # We cannot upgrade to n6.0 as ffmpeg bin only supports multithread at the moment.
 ENV FFMPEG_VERSION=n5.1.4
-ENV CFLAGS="-I$INSTALL_DIR/include $CFLAGS $EXTRA_CFLAGS"
+ENV CFLAGS="-I$INSTALL_DIR/include $CFLAGS $EXTRA_CFLAGS -Os -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections"
 ENV CXXFLAGS="$CFLAGS"
-ENV LDFLAGS="-L$INSTALL_DIR/lib $LDFLAGS $CFLAGS $EXTRA_LDFLAGS"
+ENV LDFLAGS="-L$INSTALL_DIR/lib $LDFLAGS $CFLAGS $EXTRA_LDFLAGS -Wl,--gc-sections -s"
 ENV EM_PKG_CONFIG_PATH=$EM_PKG_CONFIG_PATH:$INSTALL_DIR/lib/pkgconfig:/emsdk/upstream/emscripten/system/lib/pkgconfig
 ENV EM_TOOLCHAIN_FILE=$EMSDK/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
 ENV PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$EM_PKG_CONFIG_PATH
@@ -73,14 +73,10 @@ RUN bash -x /src/build.sh \
       --disable-doc \
       --disable-ffplay \
       --disable-ffprobe \
+
       --enable-libmp3lame \
       --enable-libvorbis \
-      --enable-libopus \
-      --disable-network
-# 构建 FFmpeg 库
-RUN make -j$(nproc) all
-# 生成必要的头文件
-RUN make libavutil/ffversion.h
+      --enable-libopus 
 
 # Build ffmpeg.wasm
 FROM ffmpeg-builder AS ffmpeg-wasm-builder
@@ -90,17 +86,13 @@ COPY build/ffmpeg-wasm.sh build.sh
 ENV FFMPEG_ST=1
 # libraries to link
 ENV FFMPEG_LIBS \
-      libavcodec/libavcodec.a \
-      libavfilter/libavfilter.a \
-      libavformat/libavformat.a \
-      libavutil/libavutil.a \
-      libswresample/libswresample.a \
-      -L$INSTALL_DIR/lib \
       -lmp3lame \
+      -logg \
       -lvorbis \
       -lvorbisenc \
       -lvorbisfile \
-      -lopus
+      -lopus \
+      -lavfilter
 RUN mkdir -p /src/dist/umd && bash -x /src/build.sh \
       ${FFMPEG_LIBS} \
       -o dist/umd/ffmpeg-core.js
