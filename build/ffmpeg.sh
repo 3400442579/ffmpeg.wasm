@@ -3,75 +3,67 @@
 set -euo pipefail
 
 CONF_FLAGS=(
-  --target-os=none              # disable target specific configs
-  --arch=x86_32                 # use x86_32 arch
-  --enable-cross-compile        # use cross compile configs
-  --disable-asm                 # disable asm
-  --disable-stripping           # disable stripping as it won't work
-  --disable-programs            # disable ffmpeg, ffprobe and ffplay build
-  --disable-doc                 # disable doc build
-  --disable-debug               # disable debug mode
-  --disable-runtime-cpudetect   # disable cpu detection
-  --disable-autodetect          # disable env auto detect
+  --target-os=none
+  --arch=x86_32
+  --enable-cross-compile
+  --disable-asm
+  --disable-stripping
+  --disable-programs
+  --disable-doc
+  --disable-debug
+  --disable-runtime-cpudetect
+  --disable-autodetect
 
-  --disable-avdevice \
-  --disable-swscale \
-  --disable-postproc \
-  --enable-avfilter \
-  # 进一步禁用不需要的特性
-  --disable-bzlib \
-  --disable-lzma \
-  --disable-iconv \
-  --disable-audiotoolbox \
-  --disable-coreimage \
-  --disable-videotoolbox \
-  --disable-avfoundation \
-  --disable-sdl2 \
-  --disable-xlib \
-  --disable-zlib \
-  --disable-libxcb \
-  --disable-cuda \
-  --disable-cuvid \
-  --disable-nvenc \
-  --disable-vaapi \
-  --disable-vdpau \
-  --disable-optimizations \
-  --disable-small \
-  --enable-static \
-  --disable-shared \
-  --disable-encoder=h264 \
-  --disable-encoder=libx264 \
-  --disable-decoder=h264 \
-  --disable-muxer=mp4 \
-  --disable-demuxer=mp4 \
-  --disable-gpl \
-  --disable-network \
-  # 禁用所有视频相关编码器
-  --disable-encoder=mpeg4 \
-  --disable-encoder=mpeg2video \
-  --disable-encoder=libxvid \
-  --disable-encoder=libvpx-vp9 \
-  --disable-encoder=libvpx \
-  # 禁用所有视频解码器
-  --disable-decoder=mpeg4 \
-  --disable-decoder=mpeg2video \
-  --disable-decoder=libvpx-vp9 \
-  --disable-decoder=libvpx \
-  # 禁用视频格式
-  --disable-muxer=avi \
-  --disable-muxer=mov \
-  --disable-muxer=mkv \
-  --disable-demuxer=avi \
-  --disable-demuxer=mov \
-  --disable-demuxer=mkv \
-  # 禁用不需要的协议
-  --disable-protocol=file \
-  --disable-protocol=http \
-  --disable-protocol=https \
-  --disable-protocol=rtmp \
-  --disable-protocol=rtsp \
+  # 禁用所有视频相关组件
+  --disable-avdevice
+  --disable-swscale
+  --disable-postproc
+  --disable-swresample-arm
+  --disable-swscale-alpha
+  --disable-swscale-arm
 
-  # assign toolchains and extra flags
+  # 保留必要滤镜功能
+  --enable-avfilter
+  
+  # 禁用不必要的库和功能
+  --disable-bzlib
+  --disable-lzma
+  --disable-iconv
+  --disable-audiotoolbox
+  --disable-coreimage
+  --disable-videotoolbox
+  --disable-avfoundation
+  --disable-sdl2
+  --disable-xlib
+  --disable-zlib
+  --disable-libxcb
+  --disable-cuda
+  --disable-cuvid
+  --disable-nvenc
+  --disable-vaapi
+  --disable-vdpau
+  --disable-optimizations
+  --disable-small
+  --enable-static
+  --disable-shared
+  --disable-network
+  
+  # 禁用所有视频编解码器
+  --disable-everything
+  
+  # 启用音频处理必需的功能
+  --enable-decoder=mp3,m4a,aac,flac,vorbis,opus,wavpack,pcm_*
+  --enable-encoder=mp3,m4a,aac,flac,vorbis,opus,pcm_*
+  --enable-parser=mpegaudio,aac,latm,vorbis,opus
+  --enable-demuxer=mp3,m4a,aac,flac,ogg,wav,au
+  --enable-muxer=mp3,m4a,aac,flac,ogg,wav
+  --enable-filter=aresample,aformat,volume,pan,amerge,amix,silenceremove,atrim,concat
+  
+  # 启用基础工具
+  --enable-protocol=file
+  --enable-filter=aformat,aresample
+
+  # 工具链配置
   --nm=emnm
   --ar=emar
   --ranlib=emranlib
@@ -82,9 +74,10 @@ CONF_FLAGS=(
   --extra-cflags="$CFLAGS"
   --extra-cxxflags="$CXXFLAGS"
 
-  # disable thread when FFMPEG_ST is NOT defined
-  ${FFMPEG_ST:+ --disable-pthreads --disable-w32threads --disable-os2threads}
+  # 禁用线程以进一步减小体积
+  --disable-pthreads
+  --disable-w32threads
+  --disable-os2threads
 )
 
 emconfigure ./configure "${CONF_FLAGS[@]}" $@
-emmake make -j

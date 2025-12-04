@@ -73,10 +73,9 @@ RUN bash -x /src/build.sh \
       --disable-doc \
       --disable-ffplay \
       --disable-ffprobe \
-
       --enable-libmp3lame \
       --enable-libvorbis \
-      --enable-libopus 
+      --enable-libopus
 
 # Build ffmpeg.wasm
 FROM ffmpeg-builder AS ffmpeg-wasm-builder
@@ -87,12 +86,15 @@ ENV FFMPEG_ST=1
 # libraries to link
 ENV FFMPEG_LIBS \
       -lmp3lame \
-      -logg \
       -lvorbis \
       -lvorbisenc \
       -lvorbisfile \
       -lopus \
-      -lavfilter
+      -lavfilter \
+      -lavformat \
+      -lavcodec \
+      -lswresample \
+      -lavutil
 RUN mkdir -p /src/dist/umd && bash -x /src/build.sh \
       ${FFMPEG_LIBS} \
       -o dist/umd/ffmpeg-core.js
