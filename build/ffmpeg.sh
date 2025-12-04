@@ -18,7 +18,6 @@ CONF_FLAGS=(
   --disable-avdevice
   --disable-swscale
   --disable-postproc
-  --disable-swscale-arm
 
   # 保留必要滤镜功能
   --enable-avfilter
@@ -41,7 +40,7 @@ CONF_FLAGS=(
   --disable-vaapi
   --disable-vdpau
   --disable-optimizations
-  --disable-small
+  --enable-small
   --enable-static
   --disable-shared
   --disable-network
