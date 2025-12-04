@@ -46,8 +46,9 @@ CONF_FLAGS=(
   src/fftools/ffmpeg_filter.c  # 音频滤镜需要此文件
   src/fftools/ffmpeg_mux.c    # 音频输出和文件生成需要此文件
   src/fftools/ffmpeg_opt.c 
-  src/fftools/ffmpeg_hw.c    # 硬件加速相关，音频处理不需要
-  src/fftools/opt_common.c   # 共享选项处理，ffmpeg_opt.c 已包含音频选项
+  # 移除不需要的文件
+  # src/fftools/ffmpeg_hw.c    # 硬件加速相关，音频处理不需要
+  src/fftools/opt_common.c   
 )
 
 emcc "${CONF_FLAGS[@]}" $@

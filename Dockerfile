@@ -77,6 +77,8 @@ RUN bash -x /src/build.sh \
       --enable-libvorbis \
       --enable-libopus \
       --disable-network
+# 生成 ffversion.h 文件
+RUN make ffversion.h
 
 # Build ffmpeg.wasm
 FROM ffmpeg-builder AS ffmpeg-wasm-builder
