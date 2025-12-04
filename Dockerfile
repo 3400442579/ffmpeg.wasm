@@ -60,7 +60,7 @@ RUN bash -x /src/build.sh
 
 # Base ffmpeg image with dependencies and source code populated.
 FROM emsdk-base AS ffmpeg-base
-RUN embuilder build sdl2 sdl2-mt
+#RUN embuilder build sdl2 sdl2-mt
 ADD https://github.com/FFmpeg/FFmpeg.git#$FFMPEG_VERSION /src
 COPY --from=lame-builder $INSTALL_DIR $INSTALL_DIR
 COPY --from=opus-builder $INSTALL_DIR $INSTALL_DIR
@@ -73,7 +73,7 @@ RUN bash -x /src/build.sh \
       --disable-doc \
       --disable-ffplay \
       --disable-ffprobe \
-     
+
       --enable-gpl \
       --enable-libmp3lame \
       --enable-libvorbis \

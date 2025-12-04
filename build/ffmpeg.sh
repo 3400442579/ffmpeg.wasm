@@ -14,6 +14,17 @@ CONF_FLAGS=(
   --disable-runtime-cpudetect   # disable cpu detection
   --disable-autodetect          # disable env auto detect
 
+  --disable-avdevice \
+  --disable-swscale \
+  --disable-postproc \
+  --disable-filters \
+  --disable-encoder=h264 \
+  --disable-encoder=libx264 \
+  --disable-decoder=h264 \
+  --disable-muxer=mp4 \
+  --disable-demuxer=mp4 \
+  --disable-gpl
+  --disable-network \
 
   # assign toolchains and extra flags
   --nm=emnm
