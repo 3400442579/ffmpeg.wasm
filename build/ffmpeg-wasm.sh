@@ -12,17 +12,6 @@ CONF_FLAGS=(
   -I./src/fftools 
   -I$INSTALL_DIR/include 
   -L$INSTALL_DIR/lib 
-  -Llibavcodec 
-  -Llibavfilter 
-  -Llibavformat 
-  -Llibavutil 
-  -Llibswresample 
-  -lavcodec 
-  -lavfilter 
-  -lavformat 
-  -lavutil 
-  -lswresample 
-  -Wno-deprecated-declarations 
   $LDFLAGS 
   -sENVIRONMENT=worker
   -sWASM_BIGINT                            # enable big int support
@@ -51,4 +40,4 @@ CONF_FLAGS=(
   # src/fftools/opt_common.c   # 可能导致编译错误
 )
 
-emcc "${CONF_FLAGS[@]}" $@
+emcc "${CONF_FLAGS[@]}" "$@"

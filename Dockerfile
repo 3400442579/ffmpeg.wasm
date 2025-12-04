@@ -77,6 +77,8 @@ RUN bash -x /src/build.sh \
       --enable-libvorbis \
       --enable-libopus \
       --disable-network
+# 构建 FFmpeg 库
+RUN make -j$(nproc) all
 # 生成必要的头文件
 RUN make libavutil/ffversion.h
 
@@ -88,16 +90,17 @@ COPY build/ffmpeg-wasm.sh build.sh
 ENV FFMPEG_ST=1
 # libraries to link
 ENV FFMPEG_LIBS \
+      libavcodec/libavcodec.a \
+      libavfilter/libavfilter.a \
+      libavformat/libavformat.a \
+      libavutil/libavutil.a \
+      libswresample/libswresample.a \
+      -L$INSTALL_DIR/lib \
       -lmp3lame \
       -lvorbis \
       -lvorbisenc \
       -lvorbisfile \
-      -lopus \
-      -lavfilter \
-      -lavformat \
-      -lavcodec \
-      -lswresample \
-      -lavutil
+      -lopus
 RUN mkdir -p /src/dist/umd && bash -x /src/build.sh \
       ${FFMPEG_LIBS} \
       -o dist/umd/ffmpeg-core.js
