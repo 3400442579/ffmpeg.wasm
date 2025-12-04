@@ -74,7 +74,6 @@ RUN bash -x /src/build.sh \
       --disable-ffplay \
       --disable-ffprobe \
 
-      --enable-gpl \
       --enable-libmp3lame \
       --enable-libvorbis \
       --enable-libopus 
@@ -91,7 +90,8 @@ ENV FFMPEG_LIBS \
       -lvorbis \
       -lvorbisenc \
       -lvorbisfile \
-      -lopus
+      -lopus \
+      -lavfilter
 RUN mkdir -p /src/dist/umd && bash -x /src/build.sh \
       ${FFMPEG_LIBS} \
       -o dist/umd/ffmpeg-core.js

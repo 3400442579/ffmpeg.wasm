@@ -17,7 +17,7 @@ CONF_FLAGS=(
   --disable-avdevice \
   --disable-swscale \
   --disable-postproc \
-  --disable-filters \
+  --enable-avfilter \
   --disable-encoder=h264 \
   --disable-encoder=libx264 \
   --disable-decoder=h264 \
