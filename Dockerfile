@@ -83,6 +83,7 @@ FROM ffmpeg-builder AS ffmpeg-wasm-builder
 COPY src/bind /src/src/bind
 COPY src/fftools /src/src/fftools
 COPY build/ffmpeg-wasm.sh build.sh
+ENV FFMPEG_ST=1
 # libraries to link
 ENV FFMPEG_LIBS \
       -lmp3lame \

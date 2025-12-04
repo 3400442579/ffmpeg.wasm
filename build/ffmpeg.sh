@@ -18,13 +18,58 @@ CONF_FLAGS=(
   --disable-swscale \
   --disable-postproc \
   --enable-avfilter \
+  # 进一步禁用不需要的特性
+  --disable-bzlib \
+  --disable-lzma \
+  --disable-iconv \
+  --disable-audiotoolbox \
+  --disable-coreimage \
+  --disable-videotoolbox \
+  --disable-avfoundation \
+  --disable-sdl2 \
+  --disable-xlib \
+  --disable-zlib \
+  --disable-libxcb \
+  --disable-cuda \
+  --disable-cuvid \
+  --disable-nvenc \
+  --disable-vaapi \
+  --disable-vdpau \
+  --disable-optimizations \
+  --disable-small \
+  --enable-static \
+  --disable-shared \
   --disable-encoder=h264 \
   --disable-encoder=libx264 \
   --disable-decoder=h264 \
   --disable-muxer=mp4 \
   --disable-demuxer=mp4 \
-  --disable-gpl
+  --disable-gpl \
   --disable-network \
+  # 禁用所有视频相关编码器
+  --disable-encoder=mpeg4 \
+  --disable-encoder=mpeg2video \
+  --disable-encoder=libxvid \
+  --disable-encoder=libvpx-vp9 \
+  --disable-encoder=libvpx \
+  # 禁用所有视频解码器
+  --disable-decoder=mpeg4 \
+  --disable-decoder=mpeg2video \
+  --disable-decoder=libvpx-vp9 \
+  --disable-decoder=libvpx \
+  # 禁用视频格式
+  --disable-muxer=avi \
+  --disable-muxer=mov \
+  --disable-muxer=mkv \
+  --disable-demuxer=avi \
+  --disable-demuxer=mov \
+  --disable-demuxer=mkv \
+  # 禁用不需要的协议
+  --disable-protocol=file \
+  --disable-protocol=http \
+  --disable-protocol=https \
+  --disable-protocol=rtmp \
+  --disable-protocol=rtsp \
 
   # assign toolchains and extra flags
   --nm=emnm
