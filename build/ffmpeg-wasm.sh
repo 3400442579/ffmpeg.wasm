@@ -48,7 +48,7 @@ CONF_FLAGS=(
   src/fftools/ffmpeg_opt.c 
   # 移除不需要的文件
   # src/fftools/ffmpeg_hw.c    # 硬件加速相关，音频处理不需要
-  src/fftools/opt_common.c   
+  # src/fftools/opt_common.c   # 可能导致编译错误
 )
 
 emcc "${CONF_FLAGS[@]}" $@
