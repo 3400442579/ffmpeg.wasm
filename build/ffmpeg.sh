@@ -75,8 +75,6 @@ CONF_FLAGS=(
   --enable-encoder=pcm_mulaw
   --enable-encoder=pcm_alaw
   --enable-encoder=libvo_amrwbenc
-  --enable-encoder=wmav1
-  --enable-encoder=wmav2
   
   # 启用音频格式
   --enable-demuxer=mp3
@@ -86,9 +84,8 @@ CONF_FLAGS=(
   --enable-demuxer=wav
   --enable-demuxer=opus
   --enable-demuxer=amr
-  --enable-demuxer=wma
+  --enable-demuxer=amr
   --enable-demuxer=asf
-  --enable-demuxer=m4v
   --enable-demuxer=mov
   --enable-demuxer=mp4
   --enable-muxer=mp3
@@ -98,7 +95,6 @@ CONF_FLAGS=(
   --enable-muxer=wav
   --enable-muxer=opus
   --enable-muxer=amr
-  --enable-muxer=wma
   --enable-muxer=asf
   --enable-muxer=mov
   --enable-muxer=mp4
@@ -128,9 +124,6 @@ CONF_FLAGS=(
   --enable-libmp3lame
   --enable-libvorbis
   --enable-libopus
-  --enable-libopencore-amrnb
-  --enable-libopencore-amrwb
-  --enable-libvo-amrwbenc
   
   # 工具链配置
   --nm=emnm
