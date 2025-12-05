@@ -37,6 +37,7 @@ CONF_FLAGS=(
   --disable-cuda-llvm
   --disable-cuvid
   --disable-d3d11va
+  --disable-d3d12va
   --disable-dxva2
   --disable-ffnvcodec
   --disable-libdrm
@@ -90,7 +91,6 @@ CONF_FLAGS=(
   --enable-filter=aformat
   --enable-filter=anull
   --enable-filter=afade
-  --enable-filter=atrim
   --enable-filter=amerge
   --enable-filter=amix
   --enable-filter=asplit
