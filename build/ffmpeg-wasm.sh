@@ -32,7 +32,7 @@ CONF_FLAGS=(
   -sASSERTIONS=0                           # 禁用断言以减小体积
   -sALLOW_TABLE_GROWTH=0                   # 禁用表增长
   -sEXPORT_ES6=0                           # 在构建时控制ES6导出
-  -sMINIFY_RUNTIME=0                       # 禁用运行时最小化以避免问题
+  # MINIFY_RUNTIME 选项不存在，已移除
   -sABORTING_MALLOC=0                      # 禁用malloc中止检查
   -sDEMANGLE_SUPPORT=0                     # 禁用符号解析支持
   -sDISABLE_EXCEPTION_CATCHING=1           # 禁用异常捕获以减小体积

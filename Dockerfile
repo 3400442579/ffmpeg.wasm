@@ -9,12 +9,14 @@ ARG FFMPEG_MT
 ENV INSTALL_DIR=/opt
 # We cannot upgrade to n6.0 as ffmpeg bin only supports multithread at the moment.
 ENV FFMPEG_VERSION=n5.1.4
-ENV CFLAGS="-I$INSTALL_DIR/include $CFLAGS $EXTRA_CFLAGS -Os -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections"
-ENV CXXFLAGS="$CFLAGS"
-ENV LDFLAGS="-L$INSTALL_DIR/lib $LDFLAGS $CFLAGS $EXTRA_LDFLAGS -Wl,--gc-sections -s"
-ENV EM_PKG_CONFIG_PATH=$EM_PKG_CONFIG_PATH:$INSTALL_DIR/lib/pkgconfig:/emsdk/upstream/emscripten/system/lib/pkgconfig
-ENV EM_TOOLCHAIN_FILE=$EMSDK/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
-ENV PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$EM_PKG_CONFIG_PATH
+ENV BASE_CFLAGS="-I$INSTALL_DIR/include -Os -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections"
+ENV BASE_LDFLAGS="-L$INSTALL_DIR/lib -Wl,--gc-sections -s"
+ENV CFLAGS="${BASE_CFLAGS} ${EXTRA_CFLAGS:-}"
+ENV CXXFLAGS="${CFLAGS}"
+ENV LDFLAGS="${BASE_LDFLAGS} ${EXTRA_LDFLAGS:-}"
+ENV EM_PKG_CONFIG_PATH="/emsdk/upstream/emscripten/system/lib/pkgconfig:$INSTALL_DIR/lib/pkgconfig"
+ENV EM_TOOLCHAIN_FILE="$EMSDK/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+ENV PKG_CONFIG_PATH="$INSTALL_DIR/lib/pkgconfig:/emsdk/upstream/emscripten/system/lib/pkgconfig"
 ENV FFMPEG_ST=$FFMPEG_ST
 ENV FFMPEG_MT=$FFMPEG_MT
 RUN apt-get update && \
@@ -55,9 +57,6 @@ ADD https://github.com/ffmpegwasm/vorbis.git#$VORBIS_BRANCH /src
 COPY build/vorbis.sh /src/build.sh
 RUN bash -x /src/build.sh
 
-
-
-
 # Base ffmpeg image with dependencies and source code populated.
 FROM emsdk-base AS ffmpeg-base
 #RUN embuilder build sdl2 sdl2-mt
@@ -85,14 +84,7 @@ COPY src/fftools /src/src/fftools
 COPY build/ffmpeg-wasm.sh build.sh
 ENV FFMPEG_ST=1
 # libraries to link
-ENV FFMPEG_LIBS \
-      -lmp3lame \
-      -logg \
-      -lvorbis \
-      -lvorbisenc \
-      -lvorbisfile \
-      -lopus \
-      -lavfilter
+ENV FFMPEG_LIBS="-lmp3lame -logg -lvorbis -lvorbisenc -lvorbisfile -lopus -lavfilter"
 RUN mkdir -p /src/dist/umd && bash -x /src/build.sh \
       ${FFMPEG_LIBS} \
       -o dist/umd/ffmpeg-core.js
