@@ -24,6 +24,8 @@ CONF_FLAGS=(
   --enable-avutil
   --enable-swresample
   --enable-avfilter
+  # 添加这行来解决链接问题
+  --enable-avdevice
   
   # 启用静态链接
   --enable-static
