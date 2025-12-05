@@ -22,6 +22,7 @@ CONF_FLAGS=(
   -lavformat 
   -lavutil 
   -lswresample 
+  -lavdevice
   -Wno-deprecated-declarations 
   -Wl,--gc-sections 
   -Wl,--strip-all 
