@@ -10,7 +10,6 @@ on:
 
 jobs:
   build-core:
-    needs: ffmpeg-configure-help
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
