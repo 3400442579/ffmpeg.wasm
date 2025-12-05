@@ -55,8 +55,8 @@ CONF_FLAGS=(
   --disable-vdpau \
   # 禁用非音频相关库
   --disable-libass \
-  --disable-harfbuzz \
-  --disable-fribidi \
+  --disable-libharfbuzz \
+  --disable-libfribidi \
   --disable-freetype \
   --disable-libwebp \
   --disable-libvpx \
