@@ -71,7 +71,6 @@ CONF_FLAGS=(
   --disable-libopencore-amrnb \
   --disable-libopencore-amrwb \
   --disable-libvo-amrwbenc \
-  --disable-libschroedinger \
   --disable-libilbc \
   --disable-lzo \
   --disable-libopencv \
