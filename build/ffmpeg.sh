@@ -37,7 +37,6 @@ CONF_FLAGS=(
   --disable-cuda-llvm
   --disable-cuvid
   --disable-d3d11va
-  --disable-d3d12va
   --disable-dxva2
   --disable-ffnvcodec
   --disable-libdrm
