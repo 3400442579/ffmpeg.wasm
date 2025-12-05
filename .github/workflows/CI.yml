@@ -9,7 +9,6 @@ on:
       - a
 
 jobs:
-
   build-core:
     needs: ffmpeg-configure-help
     runs-on: ubuntu-latest
