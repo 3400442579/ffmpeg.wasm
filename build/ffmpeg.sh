@@ -35,6 +35,16 @@ CONF_FLAGS=(
   --disable-nvenc \
   --disable-vaapi \
   --disable-vdpau \
+  --disable-zimg \
+  # 禁用非音频相关库
+  --disable-libass \
+  --disable-harfbuzz \
+  --disable-fribidi \
+  --disable-freetype \
+  --disable-libwebp \
+  --disable-libvpx \
+  --disable-libx265 \
+  --disable-libx264 \
   --disable-optimizations \
   --disable-small \
   --enable-static \
@@ -57,13 +67,22 @@ CONF_FLAGS=(
   --disable-decoder=mpeg2video \
   --disable-decoder=libvpx-vp9 \
   --disable-decoder=libvpx \
+  # 禁用 WebP 编码器和解码器
+  --disable-encoder=libwebp \
+  --disable-encoder=libwebp_anim \
+  --disable-decoder=webp \
+  --disable-decoder=libwebp_anim \
   # 禁用视频格式
   --disable-muxer=avi \
   --disable-muxer=mov \
   --disable-muxer=mkv \
+  --disable-muxer=webp \
+  --disable-muxer=webp_pipe \
   --disable-demuxer=avi \
   --disable-demuxer=mov \
   --disable-demuxer=mkv \
+  --disable-demuxer=webp \
+  --disable-demuxer=webp_pipe \
   # 禁用不需要的协议
   --disable-protocol=http \
   --disable-protocol=https \
