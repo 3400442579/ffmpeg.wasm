@@ -25,6 +25,7 @@ CONF_FLAGS=(
   -Wno-deprecated-declarations 
   -Wl,--gc-sections 
   -Wl,--strip-all 
+  -Wl,--unresolved-symbols=ignore-all
   $LDFLAGS 
   -sENVIRONMENT=worker
   -sWASM_BIGINT                            # enable big int support
