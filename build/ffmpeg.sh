@@ -2,174 +2,112 @@
 
 set -euo pipefail
 
+# 使用 --disable-everything 禁用所有组件，然后只启用需要的组件
 CONF_FLAGS=(
+  # 基本配置
   --target-os=none              # disable target specific configs
-  --arch=x86_32                 # use x86_32 arch
+  --arch=x86_32                # use x86_32 arch for WebAssembly
   --enable-cross-compile        # use cross compile configs
-  --disable-asm                 # disable asm
+  --disable-asm               # disable asm
   --disable-stripping           # disable stripping as it won't work
-  --disable-programs            # disable ffmpeg, ffprobe and ffplay build
-  --disable-doc                 # disable doc build
-  --disable-debug               # disable debug mode
-  --disable-runtime-cpudetect   # disable cpu detection
-  --disable-autodetect          # disable env auto detect
-
-  --disable-avdevice \
-  --disable-swscale \
-  --disable-postproc \
-  --enable-avfilter \
-  # 禁用额外的视频和图像处理功能
-  --disable-pixelutils \
-  --disable-vulkan \
-  --disable-opencl \
-  --disable-opengl \
-  --disable-securetransport \
-  --disable-xmm-clobber-test \
-  --disable-audiotoolbox \
-  --disable-outdev=alsa \
-  --disable-indev=alsa \
-  --disable-outdev=oss \
-  --disable-indev=oss \
-  --disable-outdev=sdl \
-  --disable-indev=sdl \
-  --disable-outdev=v4l2 \
-  --disable-indev=v4l2 \
-  --disable-outdev=fbdev \
-  --disable-indev=fbdev \
-  # 进一步禁用不需要的特性
-  --disable-bzlib \
-  --disable-lzma \
-  --disable-iconv \
-  --disable-audiotoolbox \
-  --disable-coreimage \
-  --disable-videotoolbox \
-  --disable-avfoundation \
-  --disable-sdl2 \
-  --disable-xlib \
-  --disable-zlib \
-  --disable-libxcb \
-  --disable-cuda \
-  --disable-cuvid \
-  --disable-nvenc \
-  --disable-vaapi \
-  --disable-vdpau \
-  # 禁用非音频相关库
-  --disable-libass \
-  --disable-libwebp \
-  --disable-libvpx \
-  --disable-libx265 \
-  --disable-libx264 \
-  --disable-libopenh264 \
-  --disable-libdav1d \
-  --disable-libaom \
-  --disable-libsvtav1 \
-  --disable-librav1e \
-  --disable-libtheora \
-  --disable-libspeex \
-  --disable-libtwolame \
-  --disable-libgsm \
-  --disable-libopencore-amrnb \
-  --disable-libopencore-amrwb \
-  --disable-libvo-amrwbenc \
-  --disable-libilbc \
-  --disable-libopencv \
-  --disable-libcdio \
-  --disable-libdc1394 \
-  --disable-libiec61883 \
-  --disable-libjack \
-  --disable-libpulse \
-  --disable-libopenjpeg \
-  --disable-libtesseract \
-  --disable-libbs2b \
-  --disable-libsoxr \
-  --disable-librubberband \
-  --disable-libvidstab \
-  --disable-libzvbi \
-  --disable-libcaca \
-  --disable-libgme \
-  --disable-libmodplug \
-  --disable-libv4l2 \
-  --disable-libvmaf \
-  --disable-optimizations \
-  --disable-small \
-  --enable-static \
-  --disable-shared \
-  --disable-encoder=h264 \
-  --disable-encoder=libx264 \
-  --disable-decoder=h264 \
-  --disable-muxer=mp4 \
-  --disable-demuxer=mp4 \
-  --disable-gpl \
-  --disable-network \
-  # 禁用所有视频相关编码器
-  --disable-encoder=mpeg4 \
-  --disable-encoder=mpeg2video \
-  --disable-encoder=libxvid \
-  --disable-encoder=libvpx-vp9 \
-  --disable-encoder=libvpx \
-  --disable-encoder=rawvideo \
-  --disable-encoder=h263 \
-  --disable-encoder=h263p \
-  --disable-encoder=mjpeg \
-  --disable-encoder=ljpeg \
-  --disable-encoder=jpegls \
-  --disable-encoder=png \
-  --disable-encoder=bmp \
-  --disable-encoder=tiff \
-  --disable-encoder=gif \
-  --disable-encoder=sgi \
-  # 禁用所有视频解码器
-  --disable-decoder=mpeg4 \
-  --disable-decoder=mpeg2video \
-  --disable-decoder=libvpx-vp9 \
-  --disable-decoder=libvpx \
-  --disable-decoder=rawvideo \
-  --disable-decoder=h263 \
-  --disable-decoder=h263p \
-  --disable-decoder=mjpeg \
-  --disable-decoder=ljpeg \
-  --disable-decoder=jpegls \
-  --disable-decoder=png \
-  --disable-decoder=bmp \
-  --disable-decoder=tiff \
-  --disable-decoder=gif \
-  --disable-decoder=sgi \
-  --disable-decoder=iff \
-  # 禁用 WebP 编码器和解码器
-  --disable-encoder=libwebp \
-  --disable-encoder=libwebp_anim \
-  --disable-decoder=webp \
-  --disable-decoder=libwebp_anim \
-  # 禁用视频格式
-  --disable-muxer=avi \
-  --disable-muxer=mov \
-  --disable-muxer=mkv \
-  --disable-muxer=webp \
-  --disable-muxer=webp_pipe \
-  --disable-muxer=flv \
-  --disable-muxer=m4v \
-  --disable-muxer=mpjpeg \
-  --disable-muxer=gif \
-  --disable-muxer=smjpeg \
-  --disable-muxer=yuv4mpegpipe \
-  --disable-demuxer=avi \
-  --disable-demuxer=mov \
-  --disable-demuxer=mkv \
-  --disable-demuxer=webp \
-  --disable-demuxer=webp_pipe \
-  --disable-demuxer=flv \
-  --disable-demuxer=m4v \
-  --disable-demuxer=mpjpeg \
-  --disable-demuxer=gif \
-  --disable-demuxer=smjpeg \
-  --disable-demuxer=yuv4mpegpipe \
-  # 禁用不需要的协议
-  --disable-protocol=http \
-  --disable-protocol=https \
-  --disable-protocol=rtmp \
-  --disable-protocol=rtsp \
-
-  # assign toolchains and extra flags
+  --disable-programs           # disable ffmpeg, ffprobe and ffplay build
+  --disable-doc                # disable doc build
+  --disable-debug              # disable debug mode
+  --disable-runtime-cpudetect    # disable cpu detection
+  --disable-autodetect         # disable env auto detect
+  
+  # 禁用所有组件
+  --disable-everything
+  
+  # 启用必要的组件
+  --enable-avcodec             # 编解码器
+  --enable-avformat            # 格式处理
+  --enable-avfilter            # 滤镜（音频滤镜）
+  --enable-swresample          # 音频重采样
+  --enable-avutil             # 工具库
+  
+  # 禁用不需要的库
+  --disable-avdevice           # 设备支持
+  --disable-swscale            # 视频缩放（不需要）
+  --disable-postproc           # 后处理（不需要）
+  
+  # 禁用硬件加速
+  --disable-amf
+  --disable-audiotoolbox
+  --disable-cuda-llvm
+  --disable-cuvid
+  --disable-d3d11va
+  --disable-d3d12va
+  --disable-dxva2
+  --disable-ffnvcodec
+  --disable-libdrm
+  --disable-nvdec
+  --disable-nvenc
+  --disable-vaapi
+  --disable-vdpau
+  --disable-videotoolbox
+  --disable-vulkan
+  
+  # 禁用网络功能
+  --disable-network
+  
+  # 启用音频编解码器
+  --enable-decoder=mp3
+  --enable-decoder=aac
+  --enable-decoder=flac
+  --enable-decoder=vorbis
+  --enable-decoder=opus
+  --enable-decoder=pcm_s16le
+  --enable-decoder=pcm_s16be
+  --enable-decoder=pcm_u8
+  --enable-decoder=pcm_mulaw
+  --enable-decoder=pcm_alaw
+  
+  # 启用音频编码器
+  --enable-encoder=libmp3lame
+  --enable-encoder=libvorbis
+  --enable-encoder=libopus
+  --enable-encoder=pcm_s16le
+  --enable-encoder=pcm_mulaw
+  --enable-encoder=pcm_alaw
+  
+  # 启用音频格式
+  --enable-demuxer=mp3
+  --enable-demuxer=aac
+  --enable-demuxer=flac
+  --enable-demuxer=ogg
+  --enable-demuxer=wav
+  --enable-demuxer=opus
+  --enable-muxer=mp3
+  --enable-muxer=aac
+  --enable-muxer=flac
+  --enable-muxer=ogg
+  --enable-muxer=wav
+  --enable-muxer=opus
+  
+  # 启用音频滤镜
+  --enable-filter=volume
+  --enable-filter=aresample
+  --enable-filter=aformat
+  --enable-filter=anull
+  --enable-filter=afade
+  --enable-filter=amerge
+  --enable-filter=amix
+  --enable-filter=asplit
+  --enable-filter=atempo
+  --enable-filter=equalizer
+  --enable-filter=bass
+  --enable-filter=treble
+  
+  # 只启用文件协议
+  --enable-protocol=file
+  
+  # 启用音频外部库
+  --enable-libmp3lame
+  --enable-libvorbis
+  --enable-libopus
+  
+  # 工具链配置
   --nm=emnm
   --ar=emar
   --ranlib=emranlib
@@ -179,8 +117,8 @@ CONF_FLAGS=(
   --dep-cc=emcc
   --extra-cflags="$CFLAGS"
   --extra-cxxflags="$CXXFLAGS"
-
-  # disable thread when FFMPEG_ST is NOT defined
+  
+  # 线程配置
   ${FFMPEG_ST:+ --disable-pthreads --disable-w32threads --disable-os2threads}
 )
 
