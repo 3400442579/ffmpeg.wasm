@@ -22,6 +22,10 @@ CONF_FLAGS=(
   -lavformat 
   -lavutil 
   -lswresample 
+  -lmp3lame 
+  -lvorbis 
+  -lvorbisenc 
+  -lopus 
   -Wno-deprecated-declarations 
   -Wl,--gc-sections 
   -Wl,--strip-all 
@@ -33,6 +37,7 @@ CONF_FLAGS=(
   -sMODULARIZE                             # modularized to use as a library
   -sFILESYSTEM=1                           # 保持文件系统支持
   -sFORCE_FILESYSTEM=1                      # 强制启用文件系统
+  -sNODERAWFS=0                           # 禁用原始文件系统以确保兼容性
   -sASSERTIONS=0                           # 禁用断言以减小体积
   -sALLOW_TABLE_GROWTH=0                   # 禁用表增长
   -sEXPORT_ES6=0                           # 在构建时控制ES6导出
@@ -45,7 +50,7 @@ CONF_FLAGS=(
   -sALLOW_MEMORY_GROWTH=1                   # 允许内存增长
   ${FFMPEG_MT:+ -sINITIAL_MEMORY=1024MB}   # ALLOW_MEMORY_GROWTH is not recommended when using threads, thus we use a large initial memory
   ${FFMPEG_MT:+ -sPTHREAD_POOL_SIZE=32}    # use 32 threads
-  ${FFMPEG_ST:+ -sINITIAL_MEMORY=64MB -sMAXIMUM_MEMORY=2048MB} # 减少初始内存大小，设置最大内存
+  ${FFMPEG_ST:+ -sINITIAL_MEMORY=20MB -sALLOW_MEMORY_GROWTH} # 减少初始内存大小，设置最大内存
   -sEXPORT_NAME="$EXPORT_NAME"             # required in browser env, so that user can access this module from window object
   -sEXPORTED_FUNCTIONS=$(node src/bind/ffmpeg/export.js) # exported functions
   -sEXPORTED_RUNTIME_METHODS=$(node src/bind/ffmpeg/export-runtime.js) # exported built-in functions

@@ -33,7 +33,7 @@ CONF_FLAGS=(
   
   # 启用音频编解码器
   --enable-decoder=mp3,float,s16,s32,wavpack,alac,flac,vorbis,opus,pcm_*,aac,aac_latm
-  --enable-encoder=mp3,pcm_s16le,pcm_f32le,aac
+  --enable-encoder=libmp3lame,pcm_s16le,pcm_f32le,libvorbis,libopus,aac
   --enable-parser=aac,mp3,flac,vorbis
   
   # 启用音频容器格式
