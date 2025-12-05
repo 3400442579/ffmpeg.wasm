@@ -81,9 +81,22 @@ FROM ffmpeg-builder AS ffmpeg-wasm-builder
 COPY src/bind /src/src/bind
 COPY src/fftools /src/src/fftools
 COPY build/ffmpeg-wasm.sh build.sh
+
+# 修补源代码以避免 avdevice 相关的未定义符号
+RUN sed -i 's/avdevice_register_all()/\/\* avdevice_register_all() \*\//g' /src/src/fftools/ffmpeg.c && \
+    sed -i 's/hw_device_free_all()/\/\* hw_device_free_all() \*\//g' /src/src/fftools/ffmpeg.c && \
+    sed -i 's/hw_device_setup_for_decode(/\/\* hw_device_setup_for_decode(/g' /src/src/fftools/ffmpeg.c && \
+    sed -i 's/hwaccel_decode_init(/\/\* hwaccel_decode_init(/g' /src/src/fftools/ffmpeg.c && \
+    sed -i 's/hw_device_setup_for_encode(/\/\* hw_device_setup_for_encode(/g' /src/src/fftools/ffmpeg.c && \
+    sed -i 's/hw_device_setup_for_filter(/\/\* hw_device_setup_for_filter(/g' /src/src/fftools/ffmpeg_filter.c && \
+    sed -i 's/hw_device_init_from_string(/\/\* hw_device_init_from_string(/g' /src/src/fftools/ffmpeg_opt.c && \
+    sed -i 's/hw_device_get_by_name(/\/\* hw_device_get_by_name(/g' /src/src/fftools/ffmpeg_opt.c
+
+
+    
 ENV FFMPEG_ST=1
 # libraries to link
-ENV FFMPEG_LIBS="-lmp3lame -logg -lvorbis -lvorbisenc -lvorbisfile -lopus -lavfilter -lavdevice"
+ENV FFMPEG_LIBS="-lmp3lame -logg -lvorbis -lvorbisenc -lvorbisfile -lopus -lavfilter"
 RUN mkdir -p /src/dist/umd && bash -x /src/build.sh \
       ${FFMPEG_LIBS} \
       -o dist/umd/ffmpeg-core.js
