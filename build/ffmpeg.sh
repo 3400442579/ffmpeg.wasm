@@ -72,7 +72,6 @@ CONF_FLAGS=(
   --disable-libopencore-amrwb \
   --disable-libvo-amrwbenc \
   --disable-libilbc \
-  --disable-lzo \
   --disable-libopencv \
   --disable-libcdio \
   --disable-libdc1394 \
