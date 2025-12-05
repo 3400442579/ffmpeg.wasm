@@ -96,6 +96,7 @@ CONF_FLAGS=(
   --enable-filter=amix
   --enable-filter=asplit
   --enable-filter=atempo
+  --enable-filter=adelay
   --enable-filter=equalizer
   --enable-filter=bass
   --enable-filter=treble
