@@ -42,14 +42,7 @@ CONF_FLAGS=(
   --enable-static
   --disable-shared
   --disable-hwaccels
-  --disable-hwaccel=h264_vaapi
-  --disable-hwaccel=h264_qsv
-  --disable-hwaccel=hevc_vaapi
-  --disable-hwaccel=hevc_qsv
-  --disable-hwaccel=vpx_vaapi
-  --disable-hwaccel=vpx_qsv
-  --disable-hwaccel=mjpeg_vaapi
-  --disable-hwaccel=mjpeg_qsv
+  --disable-hwaccel=all
   --disable-encoder=h264
   --disable-encoder=libx264
   --disable-decoder=h264
