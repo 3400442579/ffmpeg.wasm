@@ -14,109 +14,49 @@ CONF_FLAGS=(
   --disable-runtime-cpudetect   # disable cpu detection
   --disable-autodetect          # disable env auto detect
 
-  --disable-avdevice
-  --disable-swscale
-  --disable-postproc
+  # 使用 --disable-everything 禁用所有组件
+  --disable-everything
+  
+  # 启用核心库
+  --enable-ffmpeg
+  --enable-avcodec
+  --enable-avformat
+  --enable-avutil
+  --enable-swresample
   --enable-avfilter
-  --disable-symver
-  --disable-safe-bitstream-reader
-  # 进一步禁用不需要的特性
+  
+  # 启用静态链接
+  --enable-static
+  --disable-shared
+  
+  # 启用音频编解码器
+  --enable-decoder=mp3,float,s16,s32,wavpack,alac,flac,vorbis,opus,pcm_*,aac,aac_latm
+  --enable-encoder=mp3,pcm_s16le,pcm_f32le,aac
+  --enable-parser=aac,mp3,flac,vorbis
+  
+  # 启用音频容器格式
+  --enable-demuxer=mp3,wav,flac,ogg,opus,aac
+  --enable-muxer=mp3,wav,flac,ogg,opus,aac
+  
+  # 启用音频处理滤镜
+  --enable-filter=aresample,aformat,volume,pan,atempo,equalizer,acompressor,astats,silencedetect,silenceremove
+  --enable-filter=concat,asetpts,amix,amerge
+  
+  # 启用必要协议
+  --enable-protocol=file
+  
+  # 禁用不需要的功能
+  --disable-network
   --disable-bzlib
   --disable-lzma
   --disable-iconv
-  --disable-audiotoolbox
-  --disable-coreimage
-  --disable-videotoolbox
-  --disable-avfoundation
-  --disable-sdl2
-  --disable-xlib
-  --disable-zlib
-  --disable-libxcb
-  --disable-cuda
-  --disable-cuvid
-  --disable-nvenc
-  --disable-vaapi
-  --disable-vdpau
+  --disable-swscale
+  --disable-postproc
+  --disable-symver
+  --disable-safe-bitstream-reader
   --disable-optimizations
   --disable-small
-  --enable-static
-  --disable-shared
-  --disable-hwaccels
-  --disable-hwaccel=all
-  --disable-hwdevice=all
-  --disable-encoder=h264
-  --disable-encoder=libx264
-  --disable-decoder=h264
-  --disable-muxer=mp4
-  --disable-demuxer=mp4
-  # 禁用更多视频编码器
-  --disable-encoder=hevc
-  --disable-encoder=libx265
-  --disable-decoder=hevc
-  --disable-encoder=vp8
-  --disable-encoder=vp9
-  --disable-decoder=vp8
-  --disable-decoder=vp9
-  --disable-encoder=mjpeg
-  --disable-decoder=mjpeg
-  --disable-muxer=matroska
-  --disable-demuxer=matroska
-  --disable-muxer=flv
-  --disable-demuxer=flv
-  --disable-gpl
-  # 禁用所有视频相关编码器
-  --disable-encoder=mpeg4
-  --disable-encoder=mpeg2video
-  --disable-encoder=libxvid
-  --disable-encoder=libvpx-vp9
-  --disable-encoder=libvpx
-  # 禁用所有视频解码器
-  --disable-decoder=mpeg4
-  --disable-decoder=mpeg2video
-  --disable-decoder=libvpx-vp9
-  --disable-decoder=libvpx
-  # 禁用视频格式
-  --disable-muxer=avi
-  --disable-muxer=mov
-  --disable-muxer=mkv
-  --disable-demuxer=avi
-  --disable-demuxer=mov
-  --disable-demuxer=mkv
-  # 禁用不需要的协议
-  # 保留必要的文件协议，禁用网络协议
-  --disable-protocol=http
-  --disable-protocol=https
-  --disable-protocol=rtmp
-  --disable-protocol=rtsp
-  --disable-protocol=tcp
-  --disable-protocol=udp
-  --disable-protocol=crypto
-  --disable-protocol=hls
-  --disable-protocol=concat
-  --disable-protocol=subfile
-  # 禁用图像相关格式
-  --disable-muxer=image2
-  --disable-muxer=image2pipe
-  --disable-demuxer=image2
-  --disable-demuxer=image2pipe
-  --disable-demuxer=gif
-  --disable-demuxer=png
-  --disable-demuxer=mjpeg
-  --disable-muxer=gif
-  --disable-muxer=png
-  --disable-muxer=mjpeg
-  # 明确启用需要的音频格式
-  --enable-demuxer=wav
-  --enable-muxer=wav
-  --enable-demuxer=mp3
-  --enable-muxer=mp3
-  --enable-demuxer=aac
-  --enable-muxer=aac
-  --enable-demuxer=ogg
-  --enable-muxer=ogg
-  --enable-demuxer=flac
-  --enable-muxer=flac
-
+  
   # assign toolchains and extra flags
   --nm=emnm
   --ar=emar
