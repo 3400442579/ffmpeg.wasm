@@ -72,7 +72,6 @@ RUN bash -x /src/build.sh \
       --disable-doc \
       --disable-ffplay \
       --disable-ffprobe \
-
       --enable-libmp3lame \
       --enable-libvorbis \
       --enable-libopus 
