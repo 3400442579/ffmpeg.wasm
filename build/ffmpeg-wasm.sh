@@ -32,6 +32,7 @@ CONF_FLAGS=(
   -sASSERTIONS=1                           # 禁用断言以减小体积
   -sALLOW_TABLE_GROWTH=0                   # 禁用表增长
   -sEXPORT_ES6=0                           # 在构建时控制ES6导出
+  
   ${FFMPEG_MT:+ -sINITIAL_MEMORY=1024MB}   # ALLOW_MEMORY_GROWTH is not recommended when using threads, thus we use a large initial memory
   ${FFMPEG_MT:+ -sPTHREAD_POOL_SIZE=32}    # use 32 threads
   ${FFMPEG_ST:+ -sINITIAL_MEMORY=20MB -sALLOW_MEMORY_GROWTH} # 减少初始内存大小，允许增长
