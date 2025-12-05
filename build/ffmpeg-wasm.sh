@@ -23,6 +23,8 @@ CONF_FLAGS=(
   -lavutil 
   -lswresample 
   -Wno-deprecated-declarations 
+  -Wl,--gc-sections 
+  -Wl,--strip-all 
   $LDFLAGS 
   -sENVIRONMENT=worker
   -sWASM_BIGINT                            # enable big int support
@@ -48,7 +50,7 @@ CONF_FLAGS=(
   -sPRECISE_F32=0                             # 禁用精确F32以减小体积
   -lworkerfs.js
   --pre-js src/bind/ffmpeg/bind.js        # extra bindings, contains most of the ffmpeg.wasm javascript code
-  # 保留音频处理需要的源代码
+  # 保留音频处理需要的源代码，但排除硬件加速相关代码
   src/fftools/cmdutils.c 
   src/fftools/ffmpeg.c 
   src/fftools/ffmpeg_filter.c  # 音频滤镜需要此文件
