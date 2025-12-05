@@ -65,7 +65,6 @@ CONF_FLAGS=(
   --disable-demuxer=mov \
   --disable-demuxer=mkv \
   # 禁用不需要的协议
-  --disable-protocol=file \
   --disable-protocol=http \
   --disable-protocol=https \
   --disable-protocol=rtmp \

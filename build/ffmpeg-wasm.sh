@@ -29,7 +29,6 @@ CONF_FLAGS=(
   -sSTACK_SIZE=4MB                         # 减少栈大小，音频处理不需要5MB
   -sMODULARIZE                             # modularized to use as a library
   -sFILESYSTEM=1                           # 保持文件系统支持
-  -sFORCE_FILESYSTEM=1  
   -sASSERTIONS=1                           # 禁用断言以减小体积
   -sALLOW_TABLE_GROWTH=0                   # 禁用表增长
   -sEXPORT_ES6=0                           # 在构建时控制ES6导出
