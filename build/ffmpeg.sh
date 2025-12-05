@@ -43,6 +43,7 @@ CONF_FLAGS=(
   --disable-shared
   --disable-hwaccels
   --disable-hwaccel=all
+  --disable-hwdevice=all
   --disable-encoder=h264
   --disable-encoder=libx264
   --disable-decoder=h264
