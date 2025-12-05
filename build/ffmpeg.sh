@@ -55,7 +55,6 @@ CONF_FLAGS=(
   --disable-vdpau \
   # 禁用非音频相关库
   --disable-libass \
-  --disable-freetype \
   --disable-libwebp \
   --disable-libvpx \
   --disable-libx265 \
