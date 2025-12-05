@@ -86,7 +86,6 @@ CONF_FLAGS=(
   --disable-libvidstab \
   --disable-libzvbi \
   --disable-libcaca \
-  --disable-libchromaprint \
   --disable-libgme \
   --disable-libmodplug \
   --disable-libv4l2 \
