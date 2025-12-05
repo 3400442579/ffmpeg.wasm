@@ -44,7 +44,7 @@ CONF_FLAGS=(
   -sEXPORT_NAME="$EXPORT_NAME"             # required in browser env, so that user can access this module from window object
   -sEXPORTED_FUNCTIONS=$(node src/bind/ffmpeg/export.js) # exported functions
   -sEXPORTED_RUNTIME_METHODS=$(node src/bind/ffmpeg/export-runtime.js) # exported built-in functions
-  -sMINIMAL_JS_RUNTIME=1                       # 使用最小化JS运行时
+  # MINIMAL_JS_RUNTIME 选项不存在，已移除
   -sPRECISE_F32=0                             # 禁用精确F32以减小体积
   -lworkerfs.js
   --pre-js src/bind/ffmpeg/bind.js        # extra bindings, contains most of the ffmpeg.wasm javascript code
