@@ -121,7 +121,7 @@ CONF_FLAGS=(
   --enable-muxer=mov
   --enable-muxer=mp4
   --enable-muxer=3gpp
-  --enable-muxer=ipod
+  #--enable-muxer=ipod
   #--enable-muxer=aiff
   #--enable-muxer=au
   
