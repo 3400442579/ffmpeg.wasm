@@ -3,10 +3,10 @@ name: CI
 on:
   push:
     branches:
-      - a
+      - audio
   pull_request:
     branches:
-      - a
+      - audio
 
 jobs:
   build-core:
