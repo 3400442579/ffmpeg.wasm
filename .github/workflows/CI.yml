@@ -2,11 +2,9 @@ name: CI
 
 on:
   push:
-    branches:
-      - audio
+
   pull_request:
-    branches:
-      - audio
+
 
 jobs:
   build-core:

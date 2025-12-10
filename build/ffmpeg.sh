@@ -84,14 +84,14 @@ CONF_FLAGS=(
   --enable-encoder=flac
   --enable-encoder=libvorbis
   --enable-encoder=libopus
-  --enable-encoder=pcm_s16le
+  --enable-encoder=libvo_amrwbenc
   --enable-encoder=pcm_mulaw
   --enable-encoder=pcm_alaw
-  --enable-encoder=libvo_amrwbenc
-  --enable-encoder=pcm_s8
-  --enable-encoder=pcm_s24le
-  --enable-encoder=pcm_s32le
-  --enable-encoder=pcm_f32le
+  #--enable-encoder=pcm_s8
+  --enable-encoder=pcm_s16le
+  #--enable-encoder=pcm_s24le
+  #--enable-encoder=pcm_s32le
+  #--enable-encoder=pcm_f32le
   
   # 启用音频格式
   --enable-demuxer=mp3
@@ -121,8 +121,8 @@ CONF_FLAGS=(
   --enable-muxer=mp4
   --enable-muxer=3gpp
   --enable-muxer=ipod
-  --enable-muxer=aiff
-  --enable-muxer=au
+  #--enable-muxer=aiff
+  #--enable-muxer=au
   
   # 启用音频滤镜
   --enable-filter=volume
