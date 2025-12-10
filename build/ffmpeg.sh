@@ -139,8 +139,8 @@ CONF_FLAGS=(
   --enable-filter=adelay
   --enable-filter=areverse
   --enable-filter=equalizer
-  --enable-filter=bass
-  --enable-filter=treble
+  #--enable-filter=bass
+  #--enable-filter=treble  移除treble和bass 用equalizer代替
   
   # 只启用文件协议
   --enable-protocol=file
