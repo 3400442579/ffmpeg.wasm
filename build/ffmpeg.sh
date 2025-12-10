@@ -85,6 +85,7 @@ CONF_FLAGS=(
   --enable-encoder=libvorbis
   --enable-encoder=libopus
   --enable-encoder=libvo_amrwbenc
+  --enable-encoder=wmav2
   --enable-encoder=pcm_mulaw
   --enable-encoder=pcm_alaw
   #--enable-encoder=pcm_s8
