@@ -44,6 +44,7 @@ CONF_FLAGS=(
   # 保留音频处理需要的源代码
   src/fftools/cmdutils.c 
   src/fftools/ffmpeg.c 
+  src/fftools/ffprobe.c   
   src/fftools/ffmpeg_filter.c  # 音频滤镜需要此文件
   src/fftools/ffmpeg_mux.c    # 音频输出和文件生成需要此文件
   src/fftools/ffmpeg_opt.c 
