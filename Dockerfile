@@ -70,9 +70,6 @@ COPY --from=vorbis-builder $INSTALL_DIR $INSTALL_DIR
 FROM ffmpeg-base AS ffmpeg-builder
 COPY build/ffmpeg.sh /src/build.sh
 RUN bash -x /src/build.sh \
-      --disable-doc \
-      --disable-ffplay \
-      --disable-ffprobe \
       --enable-libmp3lame \
       --enable-libvorbis \
       --enable-libopus 
