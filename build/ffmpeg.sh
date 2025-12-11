@@ -12,7 +12,7 @@ CONF_FLAGS=(
   --disable-stripping          # disable stripping as it won't work
   --disable-ffplay             # disable ffplay build
   --disable-ffmpeg             # disable ffmpeg build
-  --disable-ffprobe            # disable ffprobe build
+  #--disable-ffprobe            # disable ffprobe build
   --disable-doc                # disable doc build
   --disable-debug              # disable debug mode
   --disable-runtime-cpudetect  # disable cpu detection
@@ -20,7 +20,7 @@ CONF_FLAGS=(
   
   # 禁用所有组件
   --disable-everything
-  #--enable-ffprobe 
+  --enable-ffprobe 
   
   # 启用必要的组件
   --enable-avcodec             # 编解码器
